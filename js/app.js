@@ -38,11 +38,31 @@ const harry = {
     }
 };
 
-const cartas = [naruto , batman, caitlyn, harry]; 
+const capita = {
+    nome: "Capitã Marvel",
+    imagem: "../img/capita.jpg",
+    atributos:{
+        ataque: 9,
+        defesa: 8,
+        magia: 8
+    }
+};
+
+const darthvader = {
+    nome: "Darth Vader",
+    imagem: "../img/darthvader.jpg",
+    atributos:{
+        ataque: 7,
+        defesa: 6,
+        magia: 6
+    }
+};
+
+const cartas = [naruto , batman, caitlyn, harry, capita, darthvader]; 
 let cartaJogador, cartaMaquina;
 
 function SortearCarta(){
-    const numeroDeCartas = 4;
+    const numeroDeCartas = 6;
     let numeroCartaJogador = parseInt(Math.random()*numeroDeCartas);
     let numeroCartaMaquina = parseInt(Math.random()*numeroDeCartas);
     while(numeroCartaJogador == numeroCartaMaquina){
