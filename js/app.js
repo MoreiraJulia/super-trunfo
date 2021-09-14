@@ -70,7 +70,6 @@ function SortearCarta(){
     }
     cartaJogador = cartas[numeroCartaJogador];
     cartaMaquina = cartas[numeroCartaMaquina];
-    
 }
 
 function ExibirCartaJogador(){
@@ -88,11 +87,17 @@ function ExibirCartaMaquina(){
     divCartaMaquina.style.backgroundImage = `url(${cartaMaquina.imagem})`;
     document.querySelector(".nome-personagem-maquina").innerText = cartaMaquina.nome;
     let listaDeAtributosDaCarta = document.querySelector(".atributos-maquina");
-    listaDeAtributosDaCarta.innerHTML = PegarAtributos(cartaMaquina.atributos);
+    listaDeAtributosDaCarta.innerHTML = PegarAtibutosMaquina(cartaMaquina.atributos);
 }
 
-function PegarAtibutosMaquina(){
+function PegarAtibutosMaquina(atributosDaCarta){
+    let listaDeAtributos = "", botaoRadio = "";
+    for(let atributo in atributosDaCarta){
+        botaoRadio = `<input type="radio" name="atributo" value="${atributo}">`;
+        listaDeAtributos += `<li>${atributo} : ${atributosDaCarta[atributo]}</li>`;
+    }
 
+    return listaDeAtributos;
 }
 
 function PegarAtributos(atributosDaCarta){
@@ -109,7 +114,22 @@ const btnSortear = document.querySelector("#btnSortear");
 btnSortear.onclick = () =>{
     SortearCarta();
     ExibirCartaJogador();
-    ExibirCartaMaquina();
 
     document.querySelector("#btnJogar").disabled = false;
-}
+};
+
+const btnJogar = document.querySelector("#btnJogar");
+btnJogar.onclick = () =>{
+    ExibirCartaMaquina();
+    let atributoEscolhido = document.querySelector("input[name='atributo']:checked").value;
+    let atributoJogador = cartaJogador.atributos[atributoEscolhido];
+    let atributoMaquina = cartaMaquina.atributos[atributoEscolhido];
+
+    if(atributoJogador == atributoMaquina){
+        document.querySelector("#resultado").innerHTML = "<h1>EMPATE</h1>";
+    }else if(atributoJogador > atributoMaquina){
+        document.querySelector("#resultado").innerHTML = "<h1>JOGADOR VENCEU!</h1>";
+    }else if(atributoJogador < atributoMaquina){
+        document.querySelector("#resultado").innerHTML = "<h1>MÁQUINA VENCEU!</h1>";
+    }
+};
